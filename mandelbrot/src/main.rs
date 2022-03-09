@@ -15,7 +15,7 @@ fn main() {
 
     if args.len() != 7 {
         eprintln!(
-            "Usage: {} <file> <canvas_size> <upper_left> <lower_right> <radius> <limit>",
+            "Usage: {} <filename> <canvas_size> <upper_left> <lower_right> <radius> <limit>",
             args[0]
         );
         eprintln!(
@@ -25,6 +25,7 @@ fn main() {
         std::process::exit(1);
     }
 
+    let filename = &args[1];
     let canvas_size: (usize, usize) = parse_pair(&args[2], 'x').expect("Error parsing canvas size");
     let upper_left = parse_complex(&args[3]).expect("Error parsing upper left complex point");
     let lower_right = parse_complex(&args[4]).expect("Error parsing lower right complex point");
@@ -42,7 +43,7 @@ fn main() {
         limit,
     );
 
-    write_image(&args[1], &pixels, canvas_size).expect("Error writing image")
+    write_image(filename, &pixels, canvas_size).expect("Error writing image")
 }
 
 fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
