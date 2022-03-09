@@ -20,10 +20,7 @@ pub fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
 }
 
 pub fn parse_complex(s: &str) -> Option<Complex<f64>> {
-    match parse_pair(s, ',') {
-        Some((re, im)) => Some(Complex { re, im }),
-        None => None,
-    }
+    parse_pair(s, ',').map(|(re, im)| Complex { re, im })
 }
 
 fn resolve_escape_count(c: Complex<f64>, limit: u8, radius: f64) -> Option<u8> {
@@ -86,7 +83,7 @@ pub fn write_image(
     let file = File::create(filename)?;
     let encoder = PngEncoder::new(file);
     match encoder.write_image(
-        &pixels,
+        pixels,
         canvas_size.0 as u32,
         canvas_size.1 as u32,
         ColorType::L8,

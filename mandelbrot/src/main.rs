@@ -30,7 +30,7 @@ fn main() {
     let radius = f64::from_str(&args[5]).expect("Error parsing radius");
     let limit = u8::from_str(&args[6]).expect("Error parsing limit");
 
-    let mut pixels = vec![0 as u8; canvas_size.0 * canvas_size.1];
+    let mut pixels = vec![0_u8; canvas_size.0 * canvas_size.1];
 
     render(
         &mut pixels,
