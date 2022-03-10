@@ -51,7 +51,7 @@ fn map_pixel_to_point(
     }
 }
 
-pub fn render(
+fn render(
     pixels: &mut [u8],
     canvas_size: (usize, usize),
     upper_left: Complex<f64>,
@@ -75,11 +75,7 @@ pub fn render(
     }
 }
 
-pub fn write_image(
-    filename: &str,
-    pixels: &[u8],
-    canvas_size: (usize, usize),
-) -> Result<(), Error> {
+fn write_image(filename: &str, pixels: &[u8], canvas_size: (usize, usize)) -> Result<(), Error> {
     let file = File::create(filename)?;
     let encoder = PngEncoder::new(file);
     match encoder.write_image(
@@ -91,4 +87,26 @@ pub fn write_image(
         Ok(_) => Ok(()),
         Err(e) => Err(Error::new(ErrorKind::Other, e.to_string())),
     }
+}
+
+pub fn generate_mandelbrot(
+    filename: &str,
+    canvas_size: (usize, usize),
+    upper_left: Complex<f64>,
+    lower_right: Complex<f64>,
+    radius: f64,
+    limit: u8,
+) {
+    let mut pixels = vec![0_u8; canvas_size.0 * canvas_size.1];
+
+    render(
+        &mut pixels,
+        canvas_size,
+        upper_left,
+        lower_right,
+        radius,
+        limit,
+    );
+
+    write_image(filename, &pixels, canvas_size).expect("Error writing image")
 }

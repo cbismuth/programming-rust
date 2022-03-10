@@ -30,16 +30,12 @@ fn main() {
     let radius = f64::from_str(&args[5]).expect("Error parsing radius");
     let limit = u8::from_str(&args[6]).expect("Error parsing limit");
 
-    let mut pixels = vec![0_u8; canvas_size.0 * canvas_size.1];
-
-    render(
-        &mut pixels,
+    generate_mandelbrot(
+        filename,
         canvas_size,
         upper_left,
         lower_right,
         radius,
         limit,
     );
-
-    write_image(filename, &pixels, canvas_size).expect("Error writing image")
 }

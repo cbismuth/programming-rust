@@ -25,4 +25,16 @@ mod mandelbrot_tests {
         assert_eq!(parse_complex("4.0x8.0"), None);
         assert_eq!(parse_complex(""), None);
     }
+
+    #[test]
+    fn test_generate_mandelbrot() {
+        generate_mandelbrot(
+            "mandelbrot.png",
+            (1024, 780),
+            Complex { re: -1.20, im: 0.1 },
+            Complex { re: -1.75, im: 0.5 },
+            2.0,
+            255,
+        )
+    }
 }
