@@ -2,6 +2,9 @@ on: [ push, pull_request ]
 
 name: Continuous Integration
 
+env:
+  RUST_BACKTRACE: full
+
 jobs:
   check:
     name: Check
