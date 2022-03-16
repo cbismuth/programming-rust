@@ -2,6 +2,8 @@
 
 set -e
 
+export RUST_BACKTRACE="full"
+
 cargo check
 cargo test
 cargo fmt --all -- --check
